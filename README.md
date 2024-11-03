@@ -1,11 +1,10 @@
 # RAG
 Document-based Conversational AI System for LangGraph Information Retrieval
 
-Overview
+## Overview
 This task aims to create a conversational AI system capable of answering questions about LangGraph by retrieving and synthesizing information from provided sources. Using the provided articles and repositories, I built a Retrieval-Augmented Generation (RAG) pipeline that retrieves information from a knowledge base and answers questions with a conversational interface.
 
 Data Sources:
-
 1. GitHub Repository: [LangGraph GitHub Repository](https://github.com/langchain-ai/langgraph)
 2. Galileo Blog: [Mastering Agents with LangGraph, AutoGen, and CREW](https://galileo.ai/blog/mastering-agents-langgraph-vs-autogen-vs-crew)
 3. LinkedIn Article: [Detailed Technical Exploration of LangGraph](https://www.linkedin.com/pulse/langgraph-detailed-technical-exploration-ai-workflow-jagadeesan-n9woc/)
