@@ -13,6 +13,9 @@ Data Sources:
 > Towards AI Article: [AI Project Management with LangGraph](https://pub.towardsai.net/revolutionizing-project-management-with-ai-agents-and-langgraph-ff90951930c1)</br>
 
 ## How to run
+Make sure to install:</br>
+`pip install pdfplumber transformers faiss-cpu openai pinecone-client streamlit gradio pdfkit sentence-transformers`</br>
+`pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
 1. Open new terminal
 2. Navigate to the project's location
 3. run `streamlit run main.py`
@@ -21,9 +24,7 @@ Data Sources:
 ## Python version
 `Python 3.11.0` 
 
-Install:</br>
-`pip install pdfplumber transformers faiss-cpu openai pinecone-client streamlit gradio pdfkit sentence-transformers`</br>
-`pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
+
 
 Links:
 * https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2
