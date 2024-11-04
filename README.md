@@ -11,3 +11,17 @@ Data Sources:
 4. Towards Data Science Article: [LangGraph from Basics to Advanced](https://towardsdatascience.com/from-basics-to-advanced-exploring-langgraph-e8c1cf4db787)
 5. Medium Article: [Why LangGraph Stands Out as an Agent Framework](https://medium.com/@hao.l/why-langgraph-stands-out-as-an-exceptional-agent-framework-44806d969cc6)
 6. Towards AI Article: [AI Project Management with LangGraph](https://pub.towardsai.net/revolutionizing-project-management-with-ai-agents-and-langgraph-ff90951930c1)
+
+## Python version
+`Python 3.11.0` 
+
+Install:</br>
+`pip install pdfplumber transformers faiss-cpu openai pinecone-client streamlit gradio pdfkit sentence-transformers`</br>
+`pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
+
+Links:
+* https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2
+* https://www.pinecone.io/learn/series/faiss/faiss-tutorial/
+* https://medium.com/@ypredofficial/faiss-vector-database-be3a9725172f
+* https://huggingface.co/distilbert/distilbert-base-cased-distilled-squad
+* https://wkhtmltopdf.org/downloads.html
