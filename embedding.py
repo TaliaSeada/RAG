@@ -1,47 +1,85 @@
 from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
+import os
+from typing import List, Tuple
+import document_processor as dp
 
-# Load model from HuggingFace Hub
-model = SentenceTransformer('all-MiniLM-L6-v2')
-
-def embed_text(texts):
-    if isinstance(texts, str):
-        texts = [texts]
+class EmbeddingEngine:
+    def __init__(self, model_name='all-MiniLM-L6-v2'):
+        self.model = SentenceTransformer(model_name)
+        self.index = None
+        self.texts = []
+        
+    def embed_chunks(self, chunks: list, batch_size: int = 32) -> tuple:
+        """Embed chunks of text in batches to manage memory."""
+        embeddings = []
+        current_batch = []
+        
+        for chunk in chunks:
+            current_batch.append(chunk)
+            
+            if len(current_batch) >= batch_size:
+                # Embed current batch
+                batch_embeddings = self.model.encode(current_batch, convert_to_tensor=False)
+                embeddings.extend(batch_embeddings)
+                current_batch = []  # Clear the batch
+                
+        # Handle any remaining chunks
+        if current_batch:
+            batch_embeddings = self.model.encode(current_batch, convert_to_tensor=False)
+            embeddings.extend(batch_embeddings)
+            
+        return np.array(embeddings)
     
-    # Returns numpy array if convert_to_tensor=False
-    text_embeddings = model.encode(texts, convert_to_tensor=False)  
-    return np.array(text_embeddings)
+    def build_index(self, input_folder: str) -> tuple:
+        """Build index with memory-efficient processing."""
+        embeddings_list = []
+        self.texts = []
+        total_size = 0
+        
+        # Process each file one at a time
+        for filename in os.listdir(input_folder):
+            if filename.endswith(".txt"):
+                # print(f"Processing {filename}...")
+                file_path = os.path.join(input_folder, filename)
+                
+                # Read and process file in chunks
+                with open(file_path, "r", encoding="utf-8") as f:
+                    current_chunks = []
+                    
+                    # Read file in chunks
+                    for chunk in dp.chunk_text(f.read()):
+                        current_chunks.append(chunk)
+                        total_size += len(chunk)
+                        
+                        # Process when we have enough chunks or memory usage is high
+                        if len(current_chunks) >= 100:  # Process in smaller batches
+                            chunk_embeddings = self.embed_chunks(current_chunks)
+                            embeddings_list.append(chunk_embeddings)
+                            self.texts.extend(current_chunks)
+                            current_chunks = []  # Clear current chunks
+                            
+                    # Process any remaining chunks
+                    if current_chunks:
+                        chunk_embeddings = self.embed_chunks(current_chunks)
+                        embeddings_list.append(chunk_embeddings)
+                        self.texts.extend(current_chunks)
+        
+        # print(f"Total text size processed: {total_size} characters")
+        # print(f"Number of chunks: {len(self.texts)}")
+        
+        # Combine all embeddings
+        all_embeddings = np.vstack(embeddings_list) if embeddings_list else np.array([])
+        
+        # Build the FAISS index
+        if len(all_embeddings) > 0:
+            dimension = all_embeddings.shape[1]
+            self.index = faiss.IndexFlatL2(dimension)
+            self.index.add(all_embeddings)
+            # print(f"Index built with {len(self.texts)} chunks")
+            return self.index, self.texts
+        else:
+            raise ValueError("No text was processed successfully")
 
 
-# Vector Storage
-def vectorStorage(embeddings):
-    # Check if embeddings is a 2D numpy array
-    assert len(embeddings.shape) == 2, "Embeddings should be a 2D array"
-    
-    dim = embeddings.shape[1]
-    index = faiss.IndexFlatL2(dim)  
-    index.add(embeddings)  
-    return index
-
-
-# def search_index(index, query, texts, top_k=1):
-#     query_embedding = embed_text(query)
-
-#     distances, indices = index.search(query_embedding, top_k)
-
-#     closest_texts = [texts[i] for i in indices[0]]
-
-#     return closest_texts, distances
-
-
-# texts = ["What is LangGraph?", "LangGraph is an agent framework for AI project management."]
-# embeddings = embed_text(texts)
-# index = vectorStorage(embeddings)
-
-# query = "What can LangGraph do?"
-# closest_texts, distances = search_index(index, query, texts)
-
-# print("Closest texts:")
-# for text, distance in zip(closest_texts, distances[0]):
-#     print(f"Text: {text}, Distance: {distance}")
