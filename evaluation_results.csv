@@ -1,0 +1,4 @@
+Question,Answer,Confidence,Response Time (s),Relevance Score,Accuracy Status
+What are the main features of LangGraph?," language models, graph- based processing, and workflow management",12.708972930908203,1.6980640888214111,,
+What is LangGraph?, an advanced AI workflow framework,13.203760147094727,1.6899478435516357,,
+What are the key components of LangGraph’s architecture?," language models, graph processing, and workflow orchestration",16.263351440429688,1.6999986171722412,,
