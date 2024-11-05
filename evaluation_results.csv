@@ -1,4 +1,6 @@
 Question,Answer,Confidence,Response Time (s),Relevance Score,Accuracy Status
-What are the main features of LangGraph?," language models, graph- based processing, and workflow management",12.708972930908203,1.6980640888214111,,
-What is LangGraph?, an advanced AI workflow framework,13.203760147094727,1.6899478435516357,,
-What are the key components of LangGraph’s architecture?," language models, graph processing, and workflow orchestration",16.263351440429688,1.6999986171722412,,
+What are the main features of LangGraph?," language models, graph- based processing, and workflow management",12.708972930908203,1.7838211059570312,High,Likely Correct
+What is LangGraph?, an advanced AI workflow framework,13.203760147094727,1.6202330589294434,High,Likely Correct
+What are the key components of LangGraph's architecture?," language models, graph processing, and workflow orchestration",16.144567489624023,1.7312257289886475,High,Likely Correct
+What does LangGraph do?," an advanced AI workflow framework that integrates language models, graph- based processing, and workflow management into a cohesive platform. It is designed to simplify the development, deployment, and maintenance of complex AI systems",11.364755630493164,1.6680655479431152,High,Likely Correct
+How to install LangGraph?," on a local machine, server, or cloud environment",9.121559143066406,1.8589324951171875,Low,Needs Review

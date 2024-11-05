@@ -11,8 +11,15 @@ class EmbeddingEngine:
         self.index = None
         self.texts = []
         
-    def embed_chunks(self, chunks: list, batch_size: int = 32) -> tuple:
-        """Embed chunks of text in batches to manage memory."""
+    def embed_chunks(self, chunks, batch_size=32):
+        """
+        Embed chunks of text in batches to manage memory
+
+        chunks: chunks to embed
+        batch_size: size of a batch
+
+        return: array of result embeddings
+        """
         embeddings = []
         current_batch = []
         
@@ -23,7 +30,8 @@ class EmbeddingEngine:
                 # Embed current batch
                 batch_embeddings = self.model.encode(current_batch, convert_to_tensor=False)
                 embeddings.extend(batch_embeddings)
-                current_batch = []  # Clear the batch
+                # Clear the batch
+                current_batch = []  
                 
         # Handle any remaining chunks
         if current_batch:
@@ -32,8 +40,16 @@ class EmbeddingEngine:
             
         return np.array(embeddings)
     
-    def build_index(self, input_folder: str) -> tuple:
-        """Build index with memory-efficient processing."""
+    def build_index(self, input_folder):
+        """
+        Build index with memory-efficient processing
+
+        input_folder: path to the folder we want to take the documents from
+
+        rteurn: 
+            index: index we built
+            text: text we read from the documents
+        """
         embeddings_list = []
         self.texts = []
         total_size = 0
@@ -54,11 +70,11 @@ class EmbeddingEngine:
                         total_size += len(chunk)
                         
                         # Process when we have enough chunks or memory usage is high
-                        if len(current_chunks) >= 100:  # Process in smaller batches
+                        if len(current_chunks) >= 100: 
                             chunk_embeddings = self.embed_chunks(current_chunks)
                             embeddings_list.append(chunk_embeddings)
                             self.texts.extend(current_chunks)
-                            current_chunks = []  # Clear current chunks
+                            current_chunks = []  
                             
                     # Process any remaining chunks
                     if current_chunks:
@@ -81,5 +97,6 @@ class EmbeddingEngine:
             return self.index, self.texts
         else:
             raise ValueError("No text was processed successfully")
+        
 
 

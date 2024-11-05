@@ -51,7 +51,7 @@ def main():
                     # Generate answer
                     result = qa_system.generate_answer(user_query, relevant_chunks)
 
-                # Display answer and confidence score with formatted output
+                # Display answer and confidence score 
                 st.markdown("### Answer")
                 st.write(result['answer'])
                 

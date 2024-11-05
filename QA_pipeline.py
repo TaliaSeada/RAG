@@ -7,7 +7,18 @@ class QASystem:
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModelForQuestionAnswering.from_pretrained(model_name)
         
-    def generate_answer(self, question: str, contexts: List[str], max_length: int = 512) -> Dict[str, str]:
+    def generate_answer(self, question, contexts, max_length=512):
+        """
+        Generate answer using LLM based on the retrieved information
+
+        question: question asked
+        contexts: retrieved informaion
+        max_length: length to use while tokenizaion
+
+        return:
+            best_answer: most relevant answer found
+            best_score: best score of the chosen answer
+        """
         best_answer = ""
         best_score = float('-inf')
         
