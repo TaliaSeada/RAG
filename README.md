@@ -88,8 +88,8 @@ Data Sources:
   * Document Processing: The sidebar enables document processing via buttons that convert URLs to PDFs and prepare the files for retrieval.
   * Question-Answer Interface: A main input box allows users to ask questions, retrieve answers, and view confidence scores and relevant documents.
 ### Tools & Challenges
-Tools: streamlit, faiss, document_processor for data management and retrieval.
-Challenges: Efficient retrieval of relevant text chunks and maintaining real-time response generation in a user-friendly UI.
+* Tools: streamlit, faiss, document_processor for data management and retrieval.
+* Challenges: Efficient retrieval of relevant text chunks and maintaining real-time response generation in a user-friendly UI.
 </details>
 
 ## How to run
